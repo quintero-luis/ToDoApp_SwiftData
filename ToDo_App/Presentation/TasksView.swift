@@ -19,7 +19,7 @@ struct TasksView: View {
     @State private var selectedTask: TaskModel?
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 HStack {
                     
@@ -52,31 +52,33 @@ struct TasksView: View {
                 
                 List {
                     ForEach(tasks) { task in
-                        HStack {
-                            
-                            Text(task.title)
-                                .font(.title3)
-                                .padding(4)
-                            
-                            Spacer()
-                            
-                            Button {
-                                task.isDone.toggle()
-                                try? context.save()
-                                print("Circle tapped on task: \(task.title) is now: \(task.isDone ? "Checked" : "Unchecked" )")
-                            } label: {
-                                Image(systemName: task.isDone ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(task.isDone ? .green : .gray)
-                                    .font(.system(size: 24, weight: .bold))
+                            HStack {
+
+                                Text(task.title)
+                                    .font(.title3)
+                                    .padding(4)
+                                
+                                Spacer()
+                                
+                                Button {
+                                    task.isDone.toggle()
+                                    try? context.save()
+                                    print("Circle tapped on task: \(task.title) is now: \(task.isDone ? "Checked" : "Unchecked" )")
+                                } label: {
+                                    Image(systemName: task.isDone ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(task.isDone ? .green : .gray)
+                                        .font(.system(size: 24, weight: .bold))
+                                }
+                                .buttonStyle(.plain) // Sets the style for buttons with a custom appearance and custom interaction behavior.
+                                
+                            } // HStack
+                            .contentShape(Rectangle()) // Make better tappable view
+                            .onTapGesture {
+                                selectedTask = task
+                                hideKeyBoard() // hideKeyboard
+                                print("Row tapped: \(task.title)")
                             }
-                            .buttonStyle(.plain) // Sets the style for buttons with a custom appearance and custom interaction behavior.
-                            
-                        } // HStack
-                        .contentShape(Rectangle()) // Make better tappable view
-                        .onTapGesture {
-                            selectedTask = task
-                            print("Row tapped: \(task.title)")
-                        }
+                        
                         
                     }
                     .onDelete { tasksSet in
@@ -87,7 +89,11 @@ struct TasksView: View {
                     }
                 }
             } // VStack
+            .navigationDestination(item: $selectedTask) { task in
+                TaskDetails(task: task)
+            }
         }// NavigationView
+        
     }
 }
 
