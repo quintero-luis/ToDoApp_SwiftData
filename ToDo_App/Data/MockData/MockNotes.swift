@@ -15,5 +15,17 @@ func mockNotesContainer() -> ModelContainer {
     
     let context = container.mainContext
     
+    let mockTasksNotes = [
+        TaskModel(title: "Make app fixes"),
+        TaskModel(title: "Conference 8:00 am"),
+        TaskModel(title: "Gym - Leg day"),
+        TaskModel(title: "Sleep before 10:40 pm")
+    ]
+    
+    // if we used Task {} instead of @MainActor, we couldn´t use the context here.
+    for mockTasksNote in mockTasksNotes {
+        context.insert(mockTasksNote)
+    }
+    
     return container
 }
