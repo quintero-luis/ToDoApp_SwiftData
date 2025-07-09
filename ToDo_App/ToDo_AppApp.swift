@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct ToDo_AppApp: App {
     var body: some Scene {
         WindowGroup {
             TasksView()
+            // Sets the model container in this scene for storing the provided model type (In this case TaskModel)
+                .modelContainer(for: TaskModel.self)
         }
     }
 }
