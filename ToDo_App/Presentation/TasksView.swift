@@ -17,13 +17,12 @@ struct TasksView: View {
     
     @State private var newTask = ""
     @State private var selectedTask: TaskModel?
-    
-    
-    
+
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
+                    
                     TextField("Add new task: ", text: $newTask)
                         .padding(.horizontal,16)
                         .padding(.vertical, 8)
@@ -52,15 +51,47 @@ struct TasksView: View {
                 .padding(16)
                 
                 List {
-                    
+                    ForEach(tasks) { task in
+                        HStack {
+                            
+                            Text(task.title)
+                                .font(.title3)
+                                .padding(4)
+                            
+                            Spacer()
+                            
+                            Button {
+                                task.isDone.toggle()
+                                try? context.save()
+                                print("Circle tapped on task: \(task.title) is now: \(task.isDone ? "Checked" : "Unchecked" )")
+                            } label: {
+                                Image(systemName: task.isDone ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(task.isDone ? .green : .gray)
+                                    .font(.system(size: 24, weight: .bold))
+                            }
+                            .buttonStyle(.plain) // Sets the style for buttons with a custom appearance and custom interaction behavior.
+                            
+                        } // HStack
+                        .contentShape(Rectangle()) // Make better tappable view
+                        .onTapGesture {
+                            selectedTask = task
+                            print("Row tapped: \(task.title)")
+                        }
+                        
+                    }
+                    .onDelete { tasksSet in
+                        for index in tasksSet {
+                            context.delete(tasks[index])
+                            print("Task: \(tasks[index].title) has been deleted")
+                        }
+                    }
                 }
-            }
+            } // VStack
         }// NavigationView
     }
 }
 
 #Preview {
     TasksView()
-    // Pass mock data to preview
-        .modelContainer(mockNotesContainer())
+        .modelContainer(mockNotesContainer()) // Pass mock data to preview
 }
