@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import SwiftData
 
+@Model
 class TaskModel: Identifiable {
     // id for every notes
     var id = UUID()
