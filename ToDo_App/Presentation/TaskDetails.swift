@@ -12,19 +12,47 @@ struct TaskDetails: View {
     
     @Environment(\.modelContext) private var context
     
+    // Close view and go to the presenter (TasksView)
+    @Environment(\.dismiss) private var dissmiss
+    
     @Bindable var task: TaskModel
     
     
     var body: some View {
-        TextField("Task:", text: $task.title)
-        
-        Button("Guardar cambios") {
-                        try? context.save()
+        NavigationStack {
+            VStack(spacing: 16) {
+                
+                TextField("Task:", text: $task.title)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 16)
+                    .background(Color(.systemGray6))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray.opacity(0.4))
                     }
-                    .foregroundColor(.blue)
+                
+                
+                Button("Guardar cambios") {
+                    try? context.save()
+                        dissmiss()
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Color.white)
+                .foregroundColor(.black)
+                .cornerRadius(12)
+                .shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2)
+                .font(.system(size: 24, weight: .regular))
+            }
+            .padding(16)
+        }
     }
 }
 
 #Preview {
-   
+    let mockTask = TaskModel(title: "Mock from mockNotesContainer")
+    
+    return TaskDetails(task: mockTask)
+        .modelContainer(mockNotesContainer())
 }
+
