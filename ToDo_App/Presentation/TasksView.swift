@@ -97,7 +97,7 @@ struct TasksView: View {
     }
 }
 
-//#Preview {
-//    TasksView()
-//        .modelContainer(mockNotesContainer()) // Pass mock data to preview
-//}
+#Preview {
+    TasksView()
+        .modelContainer(mockNotesContainer()) // Pass mock data to preview
+}

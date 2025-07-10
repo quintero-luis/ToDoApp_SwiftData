@@ -31,6 +31,13 @@ struct TaskDetails: View {
                             .stroke(Color.gray.opacity(0.4))
                     }
                 
+                TextEditor(text: $task.taskDescription)
+                    .frame(height: 320)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 2)
+                
                 
                 Button("Guardar cambios") {
                     try? context.save()
@@ -41,18 +48,19 @@ struct TaskDetails: View {
                 .background(Color.white)
                 .foregroundColor(.black)
                 .cornerRadius(12)
-                .shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2)
+                .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
                 .font(.system(size: 24, weight: .regular))
             }
             .padding(16)
         }
+//        .navigationTitle(task.title)
     }
 }
 
 #Preview {
-    let mockTask = TaskModel(title: "Mock from mockNotesContainer")
+    let mockTask = TaskModel(title: "Mock from mockNotesContainer", taskDescription: "")
     
-    return TaskDetails(task: mockTask)
+    TaskDetails(task: mockTask)
         .modelContainer(mockNotesContainer())
 }
 
