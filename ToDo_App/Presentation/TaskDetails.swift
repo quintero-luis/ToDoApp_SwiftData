@@ -21,39 +21,18 @@ struct TaskDetails: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
-                
-                TextField("Task:", text: $task.title)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 16)
-                    .background(Color(.systemGray6))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray.opacity(0.4))
-                    }
-                
                 TextEditor(text: $task.taskDescription)
-                    .frame(height: 320)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(12)
-                    .shadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 2)
-                
-                
-                Button("Guardar cambios") {
-                    try? context.save()
-                        dissmiss()
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.white)
-                .foregroundColor(.black)
-                .cornerRadius(12)
-                .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-                .font(.system(size: 24, weight: .regular))
             }
             .padding(16)
         }
-//        .navigationTitle(task.title)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Ready") {
+                    try? context.save()
+                    hideKeyBoard()
+                }
+            }
+        }
     }
 }
 
@@ -64,3 +43,23 @@ struct TaskDetails: View {
         .modelContainer(mockNotesContainer())
 }
 
+//                TextField("Task:", text: $task.title)
+//                    .padding(.horizontal, 16)
+//                    .padding(.vertical, 16)
+//                    .background(Color(.systemGray6))
+//                    .overlay {
+//                        RoundedRectangle(cornerRadius: 8)
+//                            .stroke(Color.gray.opacity(0.4))
+//                    }
+
+//                Button("Guardar cambios") {
+//                    try? context.save()
+//                        dissmiss()
+//                }
+//                .padding(.horizontal, 12)
+//                .padding(.vertical, 8)
+//                .background(Color.white)
+//                .foregroundColor(.black)
+//                .cornerRadius(12)
+//                .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
+//                .font(.system(size: 24, weight: .regular))
