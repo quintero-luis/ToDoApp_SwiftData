@@ -40,19 +40,26 @@ struct TasksView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color.gray.opacity(0.4))
                             )
-
-                        Button("Add") {
-                            guard !newTask.isEmpty else { return }
-                            let task = TaskModel(title: newTask)
-                            context.insert(task)
-                            newTask = "" // Empty TextField after Add button tapped
+                        
+                        Button(action: {
+                            for task in tasks where task.isDone {
+                                context.delete(task)
+                            }
+                        }) {
+                            Image(systemName: "eraser")
+                                .font(.system(size: 28))
+                                .foregroundColor(.black)
+                                .padding(.vertical, 6)
+                                .padding(.horizontal, 24)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.white)
+                                )
+                                
+                                .shadow(radius: 4, x: 0, y: 2)
                         }
-                        .padding(.horizontal, 12)
-                        .frame(width: 84, height: 40)
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                        .shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2)
+                        .padding(4)
+                        
                     } // 1st HStack
                     .padding(16)
 
@@ -100,23 +107,34 @@ struct TasksView: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        Button(action: {
-                            for task in tasks where task.isDone {
-                                context.delete(task)
-                            }
-                        }) {
-                            Image(systemName: "eraser")
-                                .font(.system(size: 24))
-                                .foregroundColor(.white)
+                        
+                        // Button Add task
+                        Button {
+                            guard !newTask.isEmpty else { return }
+                            let task = TaskModel(title: newTask)
+                            context.insert(task)
+                            newTask = "" // Empty TextField after Add button tapped
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.system(size: 32))
                                 .padding()
-                                .background(Color.red)
+                                .foregroundColor(.black)
+                                .background(Color.white)
                                 .clipShape(Circle())
-                                .shadow(radius: 4)
+                                .shadow(radius: 4, x: 0, y: 2)
                         }
                         .padding()
+//                        .padding(.horizontal, 12)
+//                        .frame(width: 84, height: 40)
+//                        .background(Color.black)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(12)
+//                        .shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2)
+                        
+                        
+                        
                     }
                 } //VStack (Floating Button)
-                
             } // 1st ZStack
             .navigationDestination(item: $selectedTask) { task in
                 TaskDetails(task: task)

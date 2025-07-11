@@ -25,6 +25,7 @@ struct TaskDetails: View {
             }
             .padding(16)
         }
+        .navigationTitle(task.title)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Ready") {
