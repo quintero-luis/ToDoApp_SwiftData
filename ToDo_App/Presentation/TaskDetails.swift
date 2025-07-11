@@ -43,23 +43,3 @@ struct TaskDetails: View {
         .modelContainer(mockNotesContainer())
 }
 
-//                TextField("Task:", text: $task.title)
-//                    .padding(.horizontal, 16)
-//                    .padding(.vertical, 16)
-//                    .background(Color(.systemGray6))
-//                    .overlay {
-//                        RoundedRectangle(cornerRadius: 8)
-//                            .stroke(Color.gray.opacity(0.4))
-//                    }
-
-//                Button("Guardar cambios") {
-//                    try? context.save()
-//                        dissmiss()
-//                }
-//                .padding(.horizontal, 12)
-//                .padding(.vertical, 8)
-//                .background(Color.white)
-//                .foregroundColor(.black)
-//                .cornerRadius(12)
-//                .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-//                .font(.system(size: 24, weight: .regular))
