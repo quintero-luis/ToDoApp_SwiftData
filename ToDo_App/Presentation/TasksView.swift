@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import Combine
+import TipKit
 
 struct TasksView: View {
     // Context to add, modify and delete data - From SwiftUI but used with SwiftData to obtain access to the context
@@ -21,6 +22,9 @@ struct TasksView: View {
     
     // Combine
     @StateObject private var keyboard = KeyboardObserver()
+    
+    // TipKit
+    private var tipEraser = TasksViewTip()
     
 
     var body: some View {
@@ -62,6 +66,9 @@ struct TasksView: View {
                         
                     } // 1st HStack
                     .padding(16)
+                    
+                    // TODO: TipKit
+                    TipView(tipEraser, arrowEdge: .top)
 
                     // Lista de tareas
                     List {
