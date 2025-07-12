@@ -7,9 +7,18 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 @main
 struct ToDo_AppApp: App {
+    
+    // Tip
+    init() {
+        try? Tips.configure()
+        try? Tips.resetDatastore() // Resets to 0 times seen
+        
+    }
+    
     var body: some Scene {
         WindowGroup {
             TasksView()

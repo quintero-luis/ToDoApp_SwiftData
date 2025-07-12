@@ -17,25 +17,6 @@ struct TasksViewTip: Tip {
     }
     
     var image: Image? {
-        Image(systemName: "lightbulb")
+        Image(systemName: "eraser")
     }
-    
-    
-    
-    // Actions
-//    var actions: [Action] {
-//            [
-//                Action(
-//                    id: "noShowAgain",
-//                    title: "Don't show again",
-//                    action: {
-//                        try? Tips.disableTips(for: TasksViewTip.self)
-//                    }
-//                ),
-//                Action(
-//                    id: "ok",
-//                    title: "OK"
-//                )
-//            ]
-//        }
 }

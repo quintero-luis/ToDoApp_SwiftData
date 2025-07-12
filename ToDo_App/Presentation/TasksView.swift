@@ -26,14 +26,14 @@ struct TasksView: View {
     // TipKit
     private var tipEraser = TasksViewTip()
     
-
+    
     var body: some View {
         
         NavigationStack {
             ZStack {
-
+                
                 VStack {
-
+                    
                     HStack {
                         TextField("Add new task:", text: $newTask)
                             .padding(.horizontal, 16)
@@ -59,27 +59,36 @@ struct TasksView: View {
                                     RoundedRectangle(cornerRadius: 12)
                                         .fill(Color.white)
                                 )
-                                
+                            
                                 .shadow(radius: 4, x: 0, y: 2)
-                        }
+                        } // Button
                         .padding(4)
-                        
                     } // 1st HStack
                     .padding(16)
                     
-                    // TODO: TipKit
-                    TipView(tipEraser, arrowEdge: .top)
+                    
+                    // TipKit
+                    
+                    TipView(tipEraser)
+                        .tint(.black)
+                        .padding(.horizontal, 16)
+                        .padding(.top, -20)
+                        
 
+                    
+                    
                     // Lista de tareas
                     List {
-                        ForEach(tasks) { task in
+                        // Sort by checked on top
+                        let sortedTasks = tasks.sorted { $0.isDone && !$1.isDone }
+                        ForEach(sortedTasks, id: \.id ) { task in
                             HStack {
                                 Text(task.title)
                                     .font(.title3)
                                     .padding(8)
-
+                                
                                 Spacer()
-
+                                
                                 Button {
                                     task.isDone.toggle()
                                     try? context.save()
@@ -102,10 +111,12 @@ struct TasksView: View {
                         } // ForEach
                         .onDelete { tasksSet in
                             for index in tasksSet {
-                                context.delete(tasks[index])
+                                let taskToDelete = sortedTasks[index]
+                                context.delete(taskToDelete)
                             }
                         }
                     } //List
+                    .animation(nil, value: tasks)
                     
                 } // 1st VStack
                 
@@ -130,16 +141,7 @@ struct TasksView: View {
                                 .clipShape(Circle())
                                 .shadow(radius: 4, x: 0, y: 2)
                         }
-                        .padding()
-//                        .padding(.horizontal, 12)
-//                        .frame(width: 84, height: 40)
-//                        .background(Color.black)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(12)
-//                        .shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2)
-                        
-                        
-                        
+                        .padding()  
                     }
                 } //VStack (Floating Button)
             } // 1st ZStack
