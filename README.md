@@ -8,15 +8,16 @@ An iOS app that allows users to create, edit, and manage tasks with titles and o
 - SwiftUI
 - SwiftData
 - Combine
+- Swift Testing
 - TipKit
 
 ## Architecture & Concepts:
 
 - `@Model`, `@Query`, and `@Bindable` for reactive model management
 - `NavigationStack` for modern navigation flow
-- `List`, `TextField`, and `TextEditor` for dynamic task interaction
 - `@Environment(\.modelContext)` for data persistence using SwiftData
 - Combine-based `KeyboardObserver` to detect keyboard visibility
+- Swift Testing framework (@Test, @Suite, #expect) for clean, async-friendly unit tests
 - TipKit to provide contextual in-app guidance with action buttons
 
 ## Features:
@@ -25,10 +26,10 @@ An iOS app that allows users to create, edit, and manage tasks with titles and o
 - Toggle completion state with checkmark buttons
 - Optional task description field
 - Smart keyboard dismissal on tap
+- Inline TipKit hints for UI guidance
 - Tasks sorted to show completed ones at the top
 - Floating action button to add new tasks
-- Inline TipKit hints for UI guidance
-- Clean, minimalist interface optimized for productivity
+
 
 
 
